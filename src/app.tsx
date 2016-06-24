@@ -5,7 +5,6 @@ import * as ReactDOM from "react-dom";
 import PostBox from "./components/PostBox";
 import Auth from "./components/Auth";
 import PostsStore from "./stores/PostsStore";
-import UserStore from "./stores/UserStore";
 import VKLib from "./lib/VKLib";
 
 
@@ -14,7 +13,7 @@ VKLib.init();
 
 ReactDOM.render(
     <div>
-        <Auth id={UserStore.} />
+        <Auth/>
         <PostBox source={PostsStore} />
     </div>,
     document.getElementById("content")
