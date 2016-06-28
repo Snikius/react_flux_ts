@@ -1,3 +1,6 @@
-/**
- * Created by snikius on 24.06.16.
- */
+// Define action constants
+const constants = {
+    LOGIN: 1
+};
+
+export default constants;

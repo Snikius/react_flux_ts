@@ -1,8 +1,9 @@
 import * as React from "react";
 import PostForm from "./PostForm";
 import PostList from "./PostList";
+import PostsStore from "../stores/PostsStore";
 
-export interface BoxProps { source: string; }
+export interface BoxProps { source: PostsStore; }
 
 class PostBox extends React.Component<BoxProps, any> {
     constructor(props) {
