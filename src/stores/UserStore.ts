@@ -8,7 +8,8 @@ export interface UserData
     user_id: number;
 }
 
-export default class UserStore extends EventEmitter {
+class UserStore extends EventEmitter
+{
     private data:UserData;
 
     constructor() {
@@ -39,3 +40,5 @@ export default class UserStore extends EventEmitter {
         return this.data.name;
     }
 }
+
+export default new UserStore();

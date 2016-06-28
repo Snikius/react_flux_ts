@@ -7,11 +7,10 @@ class Auth extends React.Component<{user:UserStore}, {name: string}>
         super(props);
         // По умолчанию пользователь неивестен, state состоит из {name: string} указан 2м агрументом в generics класса
         this.state = {
-            name:  this.props.user.name ? this.props.user.name : "Unknown name"
+            name:  UserStore.name ? UserStore.name : "Unknown name"
         };
     }
     render() {
-        console.log("render now!");
         let style = {
             color: "blue"
         };
@@ -19,18 +18,18 @@ class Auth extends React.Component<{user:UserStore}, {name: string}>
     }
     componentDidMount() {
         // Ожидаем событие change
-        this.props.user.addListener("change", ()=> {
+        UserStore.addListener("change", ()=> {
             this.onChange();
         });
     }
     componentWillUnmount() {
-        this.props.user.addListener("change", ()=> {
+        UserStore.addListener("change", ()=> {
             this.onChange();
         });
     }
     onChange() {
         this.setState({
-            name: this.props.user.name
+            name: UserStore.name
         });
     }
 }
