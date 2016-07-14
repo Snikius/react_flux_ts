@@ -1,8 +1,7 @@
 
 import AppDispatcher from '../dispatcher/AppDispatcher'
 import Constants from '../constants/PostsConstants'
-import {UserData} from '../stores/UserStore'
-import VKLib from '../lib/VKLib'
+import UserData from "../interfaces/UserData";
 
 export interface AppAction {
     actionType: number,
@@ -27,7 +26,7 @@ class AppActions
     static search(query: string):void {
         console.log("AppActions, search", query);
         let action:AppAction = {
-            actionType: Constants.LOGIN,
+            actionType: Constants.SEARCH,
             data: {query: query}
         };
         // Отправляем событие в диспетчер

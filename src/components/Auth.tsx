@@ -1,7 +1,7 @@
 import * as React from "react";
 import UserStore from "../stores/UserStore";
 
-class Auth extends React.Component<{user:UserStore}, {name: string}>
+class Auth extends React.Component<{}, {name: string}>
 {
     constructor(props) {
         super(props);
@@ -18,11 +18,6 @@ class Auth extends React.Component<{user:UserStore}, {name: string}>
     }
     componentDidMount() {
         // Ожидаем событие change
-        UserStore.addListener("change", ()=> {
-            this.onChange();
-        });
-    }
-    componentWillUnmount() {
         UserStore.addListener("change", ()=> {
             this.onChange();
         });

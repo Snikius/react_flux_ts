@@ -1,16 +1,13 @@
 import AppDispatcher from '../dispatcher/AppDispatcher'
 import Constants from '../constants/PostsConstants'
 import {EventEmitter} from 'fbemitter';
+import {UserData} from "../interfaces/UserData";
 
-export interface UserData
-{
-    name: string;
-    user_id: number;
-}
 
 class UserStore extends EventEmitter
 {
     private data:UserData;
+    public dispatcherIndex;
 
     constructor() {
         super();
@@ -20,7 +17,7 @@ class UserStore extends EventEmitter
             user_id: 0,
         };
         // Регистрируем store в диспетчере
-        AppDispatcher.register((payload):boolean => {
+        this.dispatcherIndex = AppDispatcher.register((payload):boolean => {
             let action = payload.action;
             if(action.actionType == Constants.LOGIN) {
                 // Сохраняем информацию о пользователе

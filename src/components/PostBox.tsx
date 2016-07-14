@@ -1,27 +1,33 @@
 import * as React from "react";
-import PostForm from "./PostForm";
 import PostList from "./PostList";
-import PostsStore from "../stores/PostsStore";
+import PostStore from "../stores/PostsStore";
 
-export interface BoxProps { source: PostsStore; }
-
-class PostBox extends React.Component<BoxProps, any> {
+class PostBox extends React.Component<{}, any> {
     constructor(props) {
         super(props);
         this.state = {
             list: []
         };
-        this.state.list.push({text: "test1!", author:"Mimi1!"});
-        this.state.list.push({text: "test2!", author:"Mimi2!"});
+        this.state.list = PostStore.comments
     }
     render() {
         return (
             <div className="commentBox">
                 <h1>Comments</h1>
                 <PostList list={this.state.list}/>
-                <PostForm />
             </div>
         );
+    }
+    componentDidMount() {
+        // Ожидаем событие change для обновления списка постов
+        PostStore.addListener("change", ()=> {
+            this.onChange();
+        });
+    }
+    onChange() {
+        this.setState({
+            list: PostStore.comments,
+        });
     }
 }
 

@@ -1,6 +1,6 @@
 import config from "../config/auth";
-import PostData from "../stores/PostsStore";
-import {UserData} from '../stores/UserStore';
+import PostData from "../interfaces/PostData";
+import {UserData} from "../interfaces/UserData";
 import AppAction from '../actions/AppActions';
 import {Promise} from 'es6-promise';
 
@@ -45,14 +45,27 @@ export default class VKLib
     }
 
     // Ищем посты по поисковой строке query
-    public static search(query:string, user_id: number):Promise {
+    public static search(query:string, user_id: number):Promise<PostData[]> {
         return new Promise(
             function(resolve, reject) {
                 VK.Api.call('wall.search', {owner_id: user_id, query: query}, function(r) {
                     if(r.response) {
-                        let test = r.response;
-                        debugger;
-                        resolve(test);
+                        // Формируем массив постов
+                        let result: PostData[] = [];
+                        for (let data of r.response) {
+                            // Пустые игнорируем
+                            if(!data.from_id || !data.text) {
+                                continue;
+                            }
+                            let post:PostData = {author: data.from_id, text: data.text};
+                            // Есть ли прикрепленные файлы к посту
+                            if(Array.isArray(data.attachments) && data.attachments.length > 0) {
+                                // Берем только последний элемент (для упрощения)
+                                post.attachment = data.attachments.pop();
+                            }
+                            result.push(post);
+                        }
+                        resolve(result);
                     }
                 });
             }

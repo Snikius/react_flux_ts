@@ -1,8 +1,8 @@
 import * as React from "react";
-import * as PostModel from "../stores/PostsStore";
+import PostData from "../interfaces/PostData";
 import Post from "./Post";
 
-export interface PostListProps { list: PostModel.PostData[]; }
+export interface PostListProps { list: PostData[]; }
 
 class PostList extends React.Component<PostListProps, any>
 {
@@ -13,8 +13,8 @@ class PostList extends React.Component<PostListProps, any>
         let list = this.props.list;
         return (
             <div className="commentList">
-                { list.map((element: PostModel.PostData) => {
-                    return <Post text={element.text} author={element.author} />;
+                { list.map((element: PostData) => {
+                    return <Post attachment={element.attachment} text={element.text} author={element.author} />;
                 })}
             </div>
         );
